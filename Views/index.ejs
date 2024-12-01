@@ -1,0 +1,57 @@
+<%- include('Layout/header') %>
+  <div class="container mt-5">
+    <!-- Alert Messages -->
+    <% if (message) { %>
+      <div class="alert alert-<%= message.type %>">
+        <%= message.message %>
+      </div>
+    <% } %>
+
+    <h1 class="mb-4">User Listing</h1>
+
+    <!-- Add User Form -->
+
+
+    <!-- User Table -->
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (users.length > 0) { %>
+          <% users.forEach((user, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td>
+                <% if (user.image) { %>
+                  <img src="<%= user.image %>" alt="User Image" class="img-thumbnail" style="width: 80px; height: 80px;">
+                <% } else { %>
+                  <span>No Image</span>
+                <% } %>
+              </td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.phone %></td>
+              <td>
+                <a href="/edit/<%= user._id %>" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/delete/<%= user._id %>" class="btn btn-danger btn-sm">Delete</a>
+              </td>
+            </tr>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="6" class="text-center">No users found</td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <%- include('Layout/footer') %>
